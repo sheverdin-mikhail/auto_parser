@@ -5,18 +5,16 @@ services:
   web: 
     build: 
       context: ./
-      dockerfile: Dockerfile.dev
-    env_file:
-      - .env.dev
-    command: bash -c " python3 /home/app/web/manage.py migrate --noinput && python3 /home/app/web/manage.py runserver 0.0.0.0:8000"
-    ports:
-      - 8000:8000
+      dockerfile: Dockerfile.prod
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    expose:
+      - 8000
     restart: unless-stopped
     volumes:
     - static_volume:/home/app/web/staticfiles
     - media_volume:/home/app/web/media 
-    - .:/home/app/web
-    
+    env_file:
+      - ./.env.prod
     links:
       - rabbit
     depends_on:
@@ -25,26 +23,14 @@ services:
 
   react:
     build:
-      context: ../front
-      dockerfile: ./Dockerfile.dev
+      context: ../auto-parser-front
+      dockerfile: ./Dockerfile.prod
     env_file:
-      - ../front/.env.dev
+      - ../auto-parser-front/.env-prod
     volumes:
-      - ../front/src:/home/app/front/src
-    ports:
-      - 3000:3000
-
-
-  db:
-    image: postgres:12-alpine
-    volumes:
-      - pg_data:/var/lib/postgresql/data/
-    env_file:
-      - ./.env.dev.db
-    restart: unless-stopped
-    ports: 
-      - 5432:5432
-
+      - react_build:/app/build
+    depends_on:
+      - web
 
   rabbit:
     build: ./rabbitmq
@@ -60,13 +46,13 @@ services:
     restart: unless-stopped
     environment:
       - RABBITMQ_DEFAULT_USER=rabbit_user_celery
-      - RABBITMQ_DEFAULT_PASS=Fwqfd12rwS112 
+      - RABBITMQ_DEFAULT_PASS=12re1QwS1eDsf1212 
     
 
   celery-parsing-worker:
     build:
       context: ./
-      dockerfile: Dockerfile.celery
+      dockerfile: Dockerfile.prod
     command: celery -A config worker -l info -c 40 -Q parsing_queue
     volumes:
     - static_volume:/home/app/web/staticfiles
@@ -75,12 +61,12 @@ services:
     depends_on:
       - rabbit
     env_file:
-      - ./.env.dev
+      - ./.env.prod
 
   celery-beat-worker:
     build:
       context: ./
-      dockerfile: Dockerfile.celery
+      dockerfile: Dockerfile.prod
     command: celery -A config worker -l info -c 1 -Q beat_queue
     volumes:
     - static_volume:/home/app/web/staticfiles
@@ -89,13 +75,13 @@ services:
     depends_on:
       - rabbit
     env_file:
-      - ./.env.dev
+      - ./.env.prod
 
 
   celery-beat:
     build:
       context: ./
-      dockerfile: Dockerfile.celery
+      dockerfile: Dockerfile.prod
     command: celery -A config beat
     volumes:
     - static_volume:/home/app/web/staticfiles
@@ -104,7 +90,7 @@ services:
     depends_on:
       - rabbit
     env_file:
-      - ./.env.dev
+      - ./.env.prod
 
 
 
@@ -112,26 +98,49 @@ services:
     image: mher/flower:0.9.5
     command: [
       'flower',  
-      '--broker=amqp://rabbit_user_celery:Fwqfd12rwS112@rabbit:5672//',
+      '--broker=amqp://rabbit_user_celery:12re1QwS1eDsf1212@rabbit:5672//',
       '--broker_api=http://rabbit:15672/api//',
-      '--port=5555'
+      '--port=5555', '--url_prefix=flower', 
+      '--basic_auth=parserpaneladmin:nturjmkef94f98E21RKFOI43FM3F'
       ]
     restart: unless-stopped
-    ports:
-      - 5555:5555
+    expose:
+      - 5555
     depends_on:
-      - celery-beat
       - rabbit
-      - celery-beat-worker
-      - celery-parsing-worker
     volumes:
     - static_volume:/home/app/web/staticfiles
     - media_volume:/home/app/web/media
 
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+    restart: unless-stopped
+    ports: 
+      - 5432:5432
+
+
+  nginx:
+    build: ./nginx
+    ports: 
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+    depends_on: 
+      - web
+      - react
+    volumes:
+    - static_volume:/home/app/web/staticfiles
+    - media_volume:/home/app/web/media  
+    - react_build:/app/build
+
 
 
 volumes:
-  pg_data:
+  postgres_data:
   static_volume:
   media_volume:
   react_build:

@@ -20,8 +20,4 @@ RUN pip install --no-cache-dir -r /home/app/web/req.txt
 # Копируем код проекта в контейнер
 COPY . /home/app/web
 
-# RUN python3 manage.py migrate --noinput
-
-# RUN python3 manage.py collectstatic --noinput
-
 
