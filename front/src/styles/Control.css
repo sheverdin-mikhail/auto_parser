@@ -1,0 +1,45 @@
+
+
+.formsBlock{
+    display: flex;
+    border-right: 3px solid #ECEFF3;
+    padding: 0 80px 0 0 ;
+    align-items: flex-start;
+}
+
+.controlTop{
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.formsBlock__nav{
+    display: flex;
+    flex-direction: column;
+}
+
+.formsBlock__form{
+    margin-left: 35px;
+    min-width: 200px
+}
+
+.uploadFileBlock{
+    padding: 0 0 0 25px;
+}
+
+.dragInfo{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    background: #fff;
+    border: 3px dashed #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 97%;
+    height: 70%;
+    font-size: 24px;
+}
+

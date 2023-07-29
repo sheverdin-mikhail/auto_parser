@@ -1,0 +1,28 @@
+.NavFormsButton{
+    font-family: 'Source Sans Pro';
+    border: none;
+    padding: 12px 20px;
+    flex: 1 0 auto;
+    text-align: center;
+    text-decoration: none;
+    color: #29344C;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 96.2%;
+    background: #F6F6F6;
+    box-shadow: 0px 7px 21px rgba(13, 47, 78, 0.22);
+    border-radius: 2px;
+    margin: 0 0 16px 0;
+    
+}
+
+.NavFormsButton:hover{
+    cursor: pointer;
+    color: #fff;
+    background: #FF00F5;
+}
+
+.NavFormsButton.active{
+    color: #fff;
+    background: #FF00F5;
+}

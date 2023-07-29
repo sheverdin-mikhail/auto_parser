@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  auto-parser:
+    image: auto-parser-front
+    build:
+      context: .
+      dockerfile: ./Dockerfile.prod

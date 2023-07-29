@@ -1,0 +1,52 @@
+
+.myButton{
+    background: #FFFFFF;
+    border: 1px solid #ECEFF3;
+    box-shadow: inset 0px -1px 1px rgba(0, 0, 0, 0.25), inset 0px 1px 1px rgba(0, 0, 0, 0.25);
+    border-radius: 2px;
+    padding: 6px 8px;
+    position: relative;
+    font-family: 'Source Sans Pro';
+    font-weight: 700;
+    color: #29344C;
+}
+
+.myButton:hover{
+    cursor: pointer;
+}
+
+.loadButton{
+    padding-left: 28px;
+}
+
+.loadButton::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    background: url('../../../images/Group.svg') center no-repeat;
+    background-size: 100%;
+    transform: translateX(30%);
+}
+
+.addButton{
+    padding-left: 32px;
+    align-self: flex-end;
+    margin-top: 16px;
+}
+
+.addButton::before{
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 100%;
+    background: url('../../../images/plus.svg') center no-repeat;
+    background-size: 100%;
+    transform: translateX(30%);
+}

@@ -1,0 +1,52 @@
+
+
+.myTable{
+    width: 100%;
+    position: relative;
+}
+
+.tableContainer{
+    padding: 4px;
+    border: 3px solid #ECEFF3;
+}
+
+td, 
+th{
+    text-align: center;
+    border: 1px solid #ECEFF3;
+    padding: 4px 5px;
+    flex: 1 1 12.5%;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Source Sans Pro';
+    font-size: 16px;
+}
+tr{
+    display: flex;
+}
+
+th{
+    font-weight: 600;
+    background: #F2F2F2;
+    color: #29344C;
+}
+td{
+    font-weight: 400;
+    color: #29344C;
+}
+
+thead,
+tbody{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+tbody{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 1500px;
+    
+}

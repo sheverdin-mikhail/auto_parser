@@ -1,0 +1,17 @@
+
+
+
+.dragInfo{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -25%);
+    background: #fff;
+    border: 3px dashed #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 97%;
+    height: 70%;
+    font-size: 24px;
+}

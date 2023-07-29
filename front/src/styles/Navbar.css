@@ -1,0 +1,38 @@
+
+
+.nav{
+    display: flex;
+    width: 30%;
+    margin-bottom: 35px;
+}
+
+.nav__link{
+    padding: 8px 0;
+    flex: 1 0 auto;
+    text-align: center;
+    text-decoration: none;
+    color: #29344C;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 96.2%;
+    background: #F6F6F6;
+    box-shadow: 0px 7px 21px rgba(13, 47, 78, 0.22);
+    border-radius: 2px;
+    font-family: 'Source Sans Pro';
+    
+}
+
+.nav__link:not(:last-child){
+    margin-right: 4px;
+}
+
+.nav__link:hover{
+    cursor: pointer;
+    color: #fff;
+    background: #FF00F5;
+}
+
+.nav__link.active{
+    color: #fff;
+    background: #FF00F5;
+}
